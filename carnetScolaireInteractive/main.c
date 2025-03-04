@@ -112,8 +112,8 @@ double getCourseScore(COURSE* course) {
 /* Affichage */
 void printFiche(FICHE fiche) {
   printf("Nom: %s\n", fiche.name);
-  printf("Prénom: %s\n", fiche.surname);
-  printf("Numéro étudiant: %d\n", fiche.id);
+  printf("PrÃ©nom: %s\n", fiche.surname);
+  printf("NumÃ©ro Ã©tudiant: %d\n", fiche.id);
   for (int i = 0; i < MAX_L_COURS; i++) {
     printf("%s: %.2f\n", fiche.courses[i].title, fiche.courses[i].score);
   }
@@ -178,12 +178,12 @@ FICHE ficheFromInput(void) {
   buffer[strcspn(buffer, "\n")] = 0;
   setName(&fiche, buffer);
 
-  printf("Prénom: ");
+  printf("PrÃ©nom: ");
   fgets(buffer, sizeof(buffer), stdin);
   buffer[strcspn(buffer, "\n")] = 0;
   setSurname(&fiche, buffer);
 
-  printf("Numéro étudiant: ");
+  printf("NumÃ©ro Ã©tudiant: ");
   fgets(buffer, sizeof(buffer), stdin);
   sscanf_s(buffer, "%d", &fiche.id);
 
@@ -212,7 +212,7 @@ COURSE courseFromInput(void) {
     fgets(buffer, sizeof(buffer), stdin);
     sscanf_s(buffer, "%lf", &course.score);
     if (course.score < 0.0 || course.score > 20.0) {
-      printf("Erreur : La note doit être entre 0 et 20.\n");
+      printf("Erreur : La note doit Ãªtre entre 0 et 20.\n");
     }
   } while (course.score < 0.0 || course.score > 20.0);
 
@@ -220,7 +220,7 @@ COURSE courseFromInput(void) {
 }
 
 
-/* Fonction pour afficher tous les étudiants depuis le fichier */
+/* Fonction pour afficher tous les Ã©tudiants depuis le fichier */
 void afficherTousLesEtudiants(const char* filename) {
   FILE* file;
   if (fopen_s(&file, filename, "r") != 0) {
@@ -241,7 +241,7 @@ void afficherTousLesEtudiants(const char* filename) {
 
 /* Gestion du fichier en ligne de commande */
 void exo5(int argc, char* argv[]) {
-  char filename[100] = "database.csv";  // Fichier par défaut
+  char filename[100] = "database.csv";  // Fichier par dÃ©faut
   if (argc > 1) {
     strncpy_s(filename, sizeof(filename), argv[1], _TRUNCATE);
   }
@@ -252,19 +252,22 @@ void exo5(int argc, char* argv[]) {
   int choix;
   do {
     // Affichage du menu
-    printf("\n--- MENU ---\n");
-    printf("1. Ajouter un étudiant\n");
-    printf("2. Afficher tous les étudiants\n");
-    printf("3. Enregistrer un étudiant\n");
-    printf("4. Quitter\n");
+    printf("\n  |==============================================================================|\n");
+    printf("  |********************************** MENU PRINCIPAL*****************************|\n");
+    printf("  |==============================================================================|\n");
+    printf("  |======================== 1 - Ajouter un Ã©tudiant          ====================|\n");
+    printf("  |======================== 2 - Afficher tous les Ã©tudiants  ====================|\n");
+    printf("  |======================== 3 - Enregistrer un Ã©tudiant      ====================|\n");
+    printf("  |======================== 4 - Quitter                      ====================|\n");
+    printf("  |==============================================================================|\n");
 
-    // Demande du choix à l'utilisateur avec validation
+    // Demande du choix Ã  l'utilisateur avec validation
     do {
       printf("Votre choix: ");
       scanf_s("%d", &choix);
-      getchar();  // Vider le buffer
+      (void)getchar();  // Vider le buffer
       if (choix < 1 || choix > 4) {
-        printf("Choix invalide, veuillez entrer un numéro entre 1 et 4.\n");
+        printf("Choix invalide, veuillez entrer un numÃ©ro entre 1 et 4.\n");
       }
     } while (choix < 1 || choix > 4);
 
@@ -281,7 +284,7 @@ void exo5(int argc, char* argv[]) {
       if (file) {
         saveFiche(file, fiche);
         fclose(file);
-        printf("Fiche enregistrée dans %s\n", filename);
+        printf("Fiche enregistrÃ©e dans %s\n", filename);
       }
       else {
         printf("Erreur d'ouverture du fichier %s\n", filename);
@@ -295,4 +298,6 @@ void exo5(int argc, char* argv[]) {
     }
   } while (choix != 4);
 }
+
+
 
